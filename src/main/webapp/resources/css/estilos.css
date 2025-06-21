@@ -1,0 +1,78 @@
+/* Fondo general de la página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: currentColor;
+    color: window;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Título principal */
+h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px 40px;
+    border-radius: 50px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Tabla de datos del usuario */
+table {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-collapse: separate;
+    border-spacing: 10px 15px;
+}
+
+td {
+    font-size: 1.1rem;
+    padding: 8px 12px;
+}
+
+/* Columna izquierda (etiquetas) */
+td:first-child {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Columna derecha (valores) */
+td:last-child {
+    color: #222;
+}
+/* Estilo del botón de login */
+.boton-login {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+/* Centrar el botón */
+.contenedor-boton {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Efecto al pasar el mouse */
+.boton-login:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Efecto al hacer clic */
+.boton-login:active {
+    transform: scale(0.98);
+}
