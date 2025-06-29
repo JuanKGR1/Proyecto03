@@ -50,7 +50,7 @@ public class login implements Serializable {
         if(user.getEmployeeId()!=null){
             HttpSession sesion = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
             sesion.setAttribute("usuario", usuario);
-            return "inicio?faces-redirect=true";
+            return "/views/index.xhtml?faces-redirect=true";
         }else {
             FacesContext contexto = FacesContext.getCurrentInstance();
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario y/o contraseñas invalidos", "MSG_ERROR");
@@ -61,5 +61,5 @@ public class login implements Serializable {
     
     public login() {
     }
-    
+ 
 }

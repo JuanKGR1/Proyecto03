@@ -5,12 +5,18 @@
 package com.mycompany.proyecto03.controller;
 
 import com.mycompany.proyecto03.entities.Countries;
+import com.mycompany.proyecto03.entities.Regions;
 import com.mycompany.proyecto03.services.CountriesFacadeLocal;
+import com.mycompany.proyecto03.services.RegionsFacadeLocal;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -21,8 +27,12 @@ import javax.ejb.EJB;
 public class ControllerCountries implements Serializable {
     
     Countries con = new Countries();
+    Regions reg = new Regions();
     @EJB
     CountriesFacadeLocal cfl;
+    @EJB
+    RegionsFacadeLocal rfl;
+    List<SelectItem> listaRegiones;    
 
     public Countries getCon() {
         return con;
@@ -30,6 +40,14 @@ public class ControllerCountries implements Serializable {
 
     public void setCon(Countries con) {
         this.con = con;
+    }
+
+    public Regions getReg() {
+        return reg;
+    }
+
+    public void setReg(Regions reg) {
+        this.reg = reg;
     }
     
      public  List<Countries> listarPaises (){
@@ -45,4 +63,29 @@ public class ControllerCountries implements Serializable {
     public ControllerCountries() {
     }
     
+    public List<SelectItem> listarRegiones(){
+        listaRegiones = new ArrayList<>();
+        try {
+            for (Regions reg : this.rfl.findAll()){
+                SelectItem item = new SelectItem(reg.getRegionId(), reg.getRegionName());
+                listaRegiones.add(item);
+            }
+            return listaRegiones;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    public void crearPais(){
+        try {
+            this.con.setRegionId(reg);
+            this.cfl.create(con);
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais registrado¡¡", "MSG_INFO");
+            contexto.addMessage(null, fm);
+            con = new Countries();
+        } catch (Exception e) {
+            
+        }
+    }
 }

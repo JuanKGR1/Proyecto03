@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../TemplateSitio.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="CountryId:" for="countryId" />
+                            <h:inputText id="countryId" value="#{controllerCountries.con.countryId}" title="CountryId" required="true" requiredMessage="The CountryId field is required."/>
+                            <h:outputLabel value="CountryName:" for="countryName" />
+                            <h:inputText id="countryName" value="#{controllerCountries.con.countryName}" title="CountryName" />
+                            <h:outputLabel value="RegionId:" for="regionId" />
+                            <h:selectOneMenu id="regionId" value="#{controllerCountries.reg.regionId}" title="RegionId" required="true" requiredMessage="The RegionId field is required.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{controllerCountries.listarRegiones()}"/>
+                            </h:selectOneMenu>
+                            <h:commandButton value="Registrar" action="#{controllerCountries.crearPais()}"/>
+                            <h:messages globalOnly="true"/> 
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+                
+                <table border="1" id="t-all" class="jsf-data-table display nowrap" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Country ID</th>
+                            <th>Country Name</th>
+                            <th>Region Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="#{controllerCountries.listarPaises()}" var="item">
+                        <tr>
+                            <td>#{item.countryId}</td>
+                            <td>#{item.countryName}</td>
+                            <td>#{item.regionId.regionName}</td>
+                        </tr>
+                        </c:forEach>    
+                    </tbody>
+                </table>
+                    
+                <script>
+                    $(document).ready(function () {
+                        $('.jsf-data-table').DataTable({
+                            dom: 'Bfrtip',
+                            "language": {
+                                "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                            },
+                            "pageLength": 50,
+                            buttons: [
+                                'copy', 'csv', 'excel', 'pdf', 'print'
+                            ]
+                        });
+
+                    });
+                </script>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
