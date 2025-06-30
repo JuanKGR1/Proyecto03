@@ -11,31 +11,15 @@
         <ui:composition template="./../TemplateSitio.xhtml">
 
             <ui:define name="content">
-                <f:view>
-                    <h:form>
-                        <h1><h:outputText value="Create/Edit"/></h1>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="CountryId:" for="countryId" />
-                            <h:inputText id="countryId" value="#{controllerCountries.con.countryId}" title="CountryId" required="true" requiredMessage="The CountryId field is required."/>
-                            <h:outputLabel value="CountryName:" for="countryName" />
-                            <h:inputText id="countryName" value="#{controllerCountries.con.countryName}" title="CountryName" />
-                            <h:outputLabel value="RegionId:" for="regionId" />
-                            <h:selectOneMenu id="regionId" value="#{controllerCountries.reg.regionId}" title="RegionId" required="true" requiredMessage="The RegionId field is required.">
-                                <!-- TODO: update below reference to list of available items-->
-                                <f:selectItems value="#{controllerCountries.listarRegiones()}"/>
-                            </h:selectOneMenu>
-                            <h:commandButton value="Registrar" action="#{controllerCountries.crearPais()}"/>
-                            <h:messages globalOnly="true"/> 
-                        </h:panelGrid>
-                    </h:form>
-                </f:view>
-                
+                <h:messages id="mensajes" />
+                <h:form> <h:commandLink value="Crear Region" action="#{controllerCountries.crearPaisP1()}"/> </h:form>
                 <table border="1" id="t-all" class="jsf-data-table display nowrap" width="100%">
                     <thead>
                         <tr>
                             <th>Country ID</th>
                             <th>Country Name</th>
                             <th>Region Name</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +28,12 @@
                             <td>#{item.countryId}</td>
                             <td>#{item.countryName}</td>
                             <td>#{item.regionId.regionName}</td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton value="Editar" action="#{controllerCountries.editarP1(item)}"/>
+                                    <h:commandButton value="Eliminar" onclick="return confirm('Desea eliminar el registro?')" action="#{controllerCountries.eliminar(item)}"/>
+                                </h:form>
+                            </td>
                         </tr>
                         </c:forEach>    
                     </tbody>

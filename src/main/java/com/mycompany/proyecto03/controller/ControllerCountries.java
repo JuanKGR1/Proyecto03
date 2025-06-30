@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -23,7 +24,7 @@ import javax.faces.model.SelectItem;
  * @author jcgom
  */
 @Named(value = "controllerCountries")
-@ViewScoped
+@SessionScoped
 public class ControllerCountries implements Serializable {
     
     Countries con = new Countries();
@@ -76,6 +77,11 @@ public class ControllerCountries implements Serializable {
         return null;
     }
     
+    public String crearPaisP1() {
+        this.con = new Countries();
+        return "/views/Countries/crearact.xhtml?faces-redirect=true";
+    }
+    
     public void crearPais(){
         try {
             this.con.setRegionId(reg);
@@ -88,4 +94,31 @@ public class ControllerCountries implements Serializable {
             
         }
     }
-}
+    
+    public  String editarP1(Countries con2){
+        this.con = con2;
+        this.reg.setRegionId(con2.getRegionId().getRegionId());
+        return "/views/Countries/crearact.xhtml?faces-redirect=true";
+    }
+    
+        public  void editarP2(){
+            try {
+                this.con.setRegionId(reg);
+                this.cfl.edit(con);
+                FacesContext contexto = FacesContext.getCurrentInstance();
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais editado¡¡", "MSG_INFO");
+                contexto.addMessage(null, fm);
+            } catch (Exception e) {
+            }
+        }
+        
+        public void eliminar (Countries con2){
+            try {
+                this.cfl.remove(con2);
+                FacesContext contexto = FacesContext.getCurrentInstance();
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "El registro fue eleminado¡", "MSG_INFO");
+                contexto.addMessage(null, fm);
+            } catch (Exception e) {
+            }
+        }
+    }

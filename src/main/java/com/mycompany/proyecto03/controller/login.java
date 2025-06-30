@@ -61,5 +61,10 @@ public class login implements Serializable {
     
     public login() {
     }
+    
+    public String cerrarSesion(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
+    }
  
 }

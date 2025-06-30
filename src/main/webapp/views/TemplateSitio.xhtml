@@ -28,7 +28,7 @@
 
         <div id="top">
             <h2>Usuario: #{login.usuario}</h2>
-            <h:commandButton value="Cerrar Sesion"/>
+            <h:form><h:commandButton value="Cerrar Sesion" action="#{login.cerrarSesion()}"/></h:form>
             <ui:insert name="top">Top</ui:insert>
         </div>
         <div>
